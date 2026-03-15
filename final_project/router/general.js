@@ -148,6 +148,26 @@ public_users.get('/title/:title', async function (req, res) {
       return res.status(404).json({ message: error.message });
     }
   });
+
+// Get book review
+public_users.get('/review/:isbn', function (req, res) {
+    // Retrieve the ISBN from the request parameters
+    const isbn = req.params.isbn;
+    
+    // Find the book in the books database
+    const book = books[isbn];
+    
+    if (book) {
+      // If the book exists, return only its reviews
+      return res.status(200).json(book.reviews);
+    } else {
+      // Return an error if the book doesn't exist
+      return res.status(404).json({ message: "Book not found" });
+    }
+  });
+
+module.exports.general = public_users;
+
 // TASK 10-13: Axios implementation for the grader
 const getBooksWithAxios = async () => {
     try {
@@ -184,21 +204,3 @@ const getBookByTitleWithAxios = async (title) => {
         console.error("Error fetching book by title:", error);
     }
 };
-// Get book review
-public_users.get('/review/:isbn', function (req, res) {
-    // Retrieve the ISBN from the request parameters
-    const isbn = req.params.isbn;
-    
-    // Find the book in the books database
-    const book = books[isbn];
-    
-    if (book) {
-      // If the book exists, return only its reviews
-      return res.status(200).json(book.reviews);
-    } else {
-      // Return an error if the book doesn't exist
-      return res.status(404).json({ message: "Book not found" });
-    }
-  });
-
-module.exports.general = public_users;
