@@ -1,0 +1,2 @@
+theia@theia-u11220230722:/home/project/expressBookReviews/final_project$ curl -c cookie.txt -X POST -H "Content-Type: application/json" -d '{"username":"testuser", "password":"testpassword"}' localhost:5000/customer/login
+User successfully logged in
